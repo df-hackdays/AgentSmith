@@ -1,0 +1,122 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  Redirecting:
+  <script>
+    var at = "<%= at %>";
+    console.log(at);
+  </script>
+
+  <script>
+
+
+  function getHiddenField(name,value){
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", name);
+    hiddenField.setAttribute("value", value);
+
+    return hiddenField;
+  }
+/*
+  function post(code) {
+      method = "post"; // Set method to post by default if not specified.
+
+      path = "https://www.linkedin.com/oauth/v2/accessToken";
+
+      // The rest of this code assumes you are not using a library.
+      // It can be made less wordy if you use one.
+      var form = document.createElement("form");
+      form.setAttribute("method", method);
+      form.setAttribute("action", path);
+
+      form.appendChild(getHiddenField("grant_type","authorization_code"));
+      form.appendChild(getHiddenField("code",code));
+      form.appendChild(getHiddenField("redirect_uri","http://localhost:3000/aftersignin"));
+      form.appendChild(getHiddenField("client_id","78npdeewvfhftw"));
+      form.appendChild(getHiddenField("client_secret","DRGfCihlossHfi4E"));
+
+
+      document.body.appendChild(form);
+
+      form.submit();
+  }
+  */
+
+  let urlParams = new URLSearchParams(window.location.search);
+  let code = urlParams.get('code');
+  let data = {"grant_type":"access_token","code":code,"redirect_uri":"http://localhost:3000/aftersignin","client_id":"78npdeewvfhftw","client_secret":"DRGfCihlossHfi4E"};
+
+/*
+  if(code){
+    $.ajax({
+      method: "POST",
+      url: "https://www.linkedin.com/oauth/v2/accessToken",
+      data: data
+    })
+    .done(function( msg ) {
+      debugger;
+      console.log(msg);
+    });
+  }
+*/
+
+/*
+
+  if(code){
+    //post(code);
+    data = {"grant_type":"access_token","code":code,"redirect_uri":"http://localhost:3000/aftersignin","client_id":"78npdeewvfhftw","client_secret":"DRGfCihlossHfi4E"};
+    var form ="grant_type=authorization_code&code="+code+"&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Faftersignin&client_id=78npdeewvfhftw&client_secret=DRGfCihlossHfi4E";
+
+    fetch('https://www.linkedin.com/oauth/v2/accessToken', {
+      method: 'post',
+      body: form,
+      headers:{"Content-Type": 'application/x-www-form-urlencoded'}
+    })
+    .then(function(res){
+      debugger;
+      let data = JSON.parse(res);
+      console.log(data);
+      let at = data.access_token;
+      document.write(at);
+      return fetch('api.linkedin.com/v1/people/~', {
+            method: 'get',
+            headers: new Headers({
+              'Authorization': 'Basic '+at,
+              'Content-Type': 'application/x-www-form-urlencoded'
+            })
+          })
+    })
+    .then(function(res){
+      console.log(res);
+    })
+    .catch(function(err){
+      debugger;
+      console.log(err);
+    })
+  }else{
+    let at = urlParams.get('access_token');
+  }
+*/
+/*
+    fetch('api.linkedin.com/v1/people/~', {
+      method: 'get',
+      headers: new Headers({
+        'Authorization': 'Basic '+at,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    })
+    .then(function(res){
+      console.log(res);
+      document.write(at);
+    })
+  */
+  //}
+
+
+
+  </script>
+</body>
+</html>
